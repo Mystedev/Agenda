@@ -1,8 +1,9 @@
-// ignore_for_file: unused_element, avoid_unnecessary_containers
+// ignore_for_file: unused_element, avoid_unnecessary_containers, sort_child_properties_last, avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:travels_ositos/pages/bodyDashboard.dart';
 import 'package:travels_ositos/theme/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -39,10 +40,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
 Widget _dashboard(BuildContext context, void Function(bool) toggleTheme,
     ThemeMode themeMode) {
+  void _openGoogleMaps() async {
+    // URL para abrir una ubicación específica
+    final Uri url = Uri.parse('google.maps://'); // Cambia las coordenadas
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      // Si Google Maps no está instalado, abre en el navegador
+      final Uri webUrl = Uri.parse('https://www.google.com/maps/');
+      if (await canLaunchUrl(webUrl)) {
+        await launchUrl(webUrl);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error al abrir Google Maps')));
+        print('No se pudo abrir Google Maps.');
+      }
+    }
+  }
+
   return Scaffold(
     appBar: _appBar(context, themeMode, toggleTheme),
     drawer: _drawer(),
     body: BodyDashboard(),
+    floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.greenAccent,
+        child: Icon(Icons.map),
+        onPressed: _openGoogleMaps),
   );
 }
 
@@ -72,8 +95,7 @@ Widget _drawer() {
         children: [
           CircleAvatar(
             backgroundImage: NetworkImage(
-              'https://img.freepik.com/vector-gratis/foto-cuenta-perfil-mujer_24908-81036.jpg?t=st=1737215405~exp=1737219005~hmac=a24846f26c9ea9eb8e117005eb351c491eb263d97f726592bb2ce57afa4090d7&w=826'
-            ),
+                'https://img.freepik.com/vector-gratis/foto-cuenta-perfil-mujer_24908-81036.jpg?t=st=1737215405~exp=1737219005~hmac=a24846f26c9ea9eb8e117005eb351c491eb263d97f726592bb2ce57afa4090d7&w=826'),
             radius: 50,
           ),
           SizedBox(
@@ -92,28 +114,35 @@ Widget _drawer() {
         spacing: 8,
         children: [
           ListTile(
-            title: Text('Actualizar'), 
-            trailing: Icon(Icons.update,color: Colors.green,),
-            onTap: () {/*Accion para actualizar el apk desde google drive*/}
-          ),
+              title: Text('Actualizar'),
+              trailing: Icon(
+                Icons.update,
+                color: Colors.green,
+              ),
+              onTap: () {/*Accion para actualizar el apk desde google drive*/}),
           ListTile(
-            title: Text('Calendario'), 
-            trailing: Icon(Icons.calendar_today,color: Colors.blue,),
-            onTap: () {/*Accion para ver el calendario*/}
-          ),
+              title: Text('Calendario'),
+              trailing: Icon(
+                Icons.calendar_today,
+                color: Colors.blue,
+              ),
+              onTap: () {/*Accion para ver el calendario*/}),
           ListTile(
-            title: Text('Agenda'), 
-            trailing: Icon(Icons.description_outlined,color: Colors.purple,),
-            onTap: () {/*Accion par abrir la agenda*/}
-          ),
+              title: Text('Agenda'),
+              trailing: Icon(
+                Icons.description_outlined,
+                color: Colors.purple,
+              ),
+              onTap: () {/*Accion par abrir la agenda*/}),
           ListTile(
-            title: Text('Notas'), 
-            trailing: Icon(Icons.note,color: const Color.fromARGB(255, 233, 118, 30),),
-            onTap: () {/*Accion para guardar y escribir notas*/}
-          ),
+              title: Text('Notas'),
+              trailing: Icon(
+                Icons.note,
+                color: const Color.fromARGB(255, 233, 118, 30),
+              ),
+              onTap: () {/*Accion para guardar y escribir notas*/}),
         ],
       ),
     )
   ]));
 }
-
