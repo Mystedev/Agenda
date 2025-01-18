@@ -34,6 +34,13 @@ class _BodyDashboardState extends State<BodyDashboard> {
             subtitle: Text(subtitle),
           ),
           const SizedBox(height: 20),
+          ListTile(
+            title: Text('Bonos'),
+            subtitle: Text('Ver bonos habituales'),
+            trailing: Icon(Icons.train),
+            onTap: (){},
+          ),
+          const SizedBox(height: 20),
           SizedBox(
             height: 50, // Limita la altura del ListView horizontal
             child: ListView.builder(
@@ -85,10 +92,9 @@ class _BodyDashboardState extends State<BodyDashboard> {
 // Elementos de la lista horizontal de listas
 Widget _chip(BuildContext context, String text, String info) {
   return SizedBox(
-    width: 100,
-    height: 50,
     child: ElevatedButton(
         style: ButtonStyle(
+          minimumSize: WidgetStatePropertyAll(Size(100,30)),
           backgroundColor:
               WidgetStateProperty.all(const Color.fromARGB(255, 249, 255, 179)),
           foregroundColor: WidgetStateProperty.all(Colors.black),

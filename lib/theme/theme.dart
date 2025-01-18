@@ -16,18 +16,17 @@ final ThemeData lightTheme = ThemeData(
   }),
   scaffoldBackgroundColor: Color.fromARGB(255, 239, 239, 239),
   brightness: Brightness.light,
-  primaryColor: const Color(0xFF004d40),
   appBarTheme: const AppBarTheme(
-    backgroundColor: Color(0xFF004d40),
+    backgroundColor:Color.fromARGB(255, 239, 239, 239),
     titleTextStyle: TextStyle(
-      color: Colors.white,
+      color: Colors.black,
       fontSize: 20,
       fontWeight: FontWeight.bold,
     ),
     iconTheme: IconThemeData(color: Colors.black),
   ),
   cardTheme: const CardTheme(
-    color: Color.fromARGB(255, 228, 248, 245),
+    color: Color.fromARGB(255, 239, 239, 239),
     shadowColor: Colors.black12,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -94,10 +93,8 @@ final ThemeData darkTheme = ThemeData(
     900: Color(0xFF004d40),
   }),
   brightness: Brightness.dark,
-  primaryColor: const Color(0xFF004d40),
   scaffoldBackgroundColor: const Color.fromARGB(255, 18, 18, 18),
   appBarTheme: const AppBarTheme(
-    backgroundColor: Color(0xFF004d40),
     titleTextStyle: TextStyle(
       color: Colors.white,
       fontSize: 20,

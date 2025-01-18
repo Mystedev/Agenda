@@ -11,7 +11,9 @@ class _AlsaRouteState extends State<AlsaRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 185, 212, 249),
+      appBar: AppBar(
+        title: const Text('Alsa'),
+      )
     );
   }
 }

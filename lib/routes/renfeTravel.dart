@@ -11,7 +11,9 @@ class _RenfeRouteState extends State<RenfeRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 249, 226, 204),
+      appBar: AppBar(
+        title: const Text('Renfe Rodalies'),
+      )
     );
   }
 }
