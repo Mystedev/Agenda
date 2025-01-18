@@ -8,12 +8,13 @@ class AlsaRoute extends StatefulWidget {
 }
 
 class _AlsaRouteState extends State<AlsaRoute> {
+  String title = 'Alsa';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Alsa'),
-      )
-    );
+        appBar: AppBar(
+      title: Text(title),
+    ));
   }
 }

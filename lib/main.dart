@@ -31,6 +31,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // Elementos de texto
+  String urlimage =
+      'https://i.pinimg.com/736x/22/ad/2c/22ad2c5167e8392537f25060663ecc75.jpg';
+  String welcome = 'Bienvenida a nuestra App';
+  String acceso = 'Acceso a la agenda';
+  String acceder = 'Acceder';
+
   double _scale = 1.0; // Tamaño inicial del botón
 
   void _onButtonPressed() {
@@ -49,14 +56,13 @@ class _HomePageState extends State<HomePage> {
           transitionDuration: const Duration(milliseconds: 500),
           pageBuilder: (context, animation, secondaryAnimation) =>
               const DashboardScreen(),
-          transitionsBuilder:
-              (context, animation, secondaryAnimation, child) {
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(1.0, 0.0);
             const end = Offset.zero;
             const curve = Curves.easeInOut;
 
-            var tween = Tween(begin: begin, end: end)
-                .chain(CurveTween(curve: curve));
+            var tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
             var offsetAnimation = animation.drive(tween);
 
             return SlideTransition(
@@ -77,7 +83,7 @@ class _HomePageState extends State<HomePage> {
           // Imagen de fondo
           Positioned.fill(
             child: Image.network(
-              'https://i.pinimg.com/736x/22/ad/2c/22ad2c5167e8392537f25060663ecc75.jpg',
+              urlimage,
               fit: BoxFit.cover, // Hace que la imagen llene todo el espacio
             ),
           ),
@@ -88,19 +94,19 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Texto centrado
-                const Text(
-                  'Bienvenida a nuestra App',
+                Text(
+                  welcome,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 60.0,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
-                const Text(
-                  'Acceso al dashboard',
+                Text(
+                  acceso,
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 34.0,
                     color: Color.fromARGB(255, 65, 65, 65),
                   ),
                 ),
@@ -124,8 +130,8 @@ class _HomePageState extends State<HomePage> {
                       Icons.call_made_rounded,
                       color: Colors.white,
                     ),
-                    label: const Text(
-                      'Acceder',
+                    label: Text(
+                      acceder,
                       style: TextStyle(
                         fontSize: 20.0,
                         color: Colors.white,

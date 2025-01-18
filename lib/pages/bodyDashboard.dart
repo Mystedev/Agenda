@@ -1,9 +1,11 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: avoid_unnecessary_containers, unused_element
 
 import 'package:flutter/material.dart';
+import 'package:travels_ositos/bonos/bonos.dart';
 import 'package:travels_ositos/dashboardCards/cardAlsa.dart';
 import 'package:travels_ositos/dashboardCards/cardRenfe.dart';
 import 'package:travels_ositos/dashboardCards/cardTMB.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BodyDashboard extends StatefulWidget {
   const BodyDashboard({super.key});
@@ -13,12 +15,35 @@ class BodyDashboard extends StatefulWidget {
 }
 
 class _BodyDashboardState extends State<BodyDashboard> {
+  // URLs de las páginas
+  final String tarifasUrl =
+      'https://rodalies.gencat.cat/es/tarifes/noves-tarifes-2025/';
+  final String horariosUrl =
+      'https://www.tmb.cat/es/tarifas-metro-bus-barcelona';
+
+  // Función para abrir un enlace en el navegador
+  Future<void> _launchUrl(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      throw Exception('No se pudo abrir el enlace: $urlString');
+    }
+  }
+
   // Variables de los elementos principales del Scaffold
   String titleWelcome = 'What Are You Looking For?';
   String subtitle = 'Encuentra un trayecto o accede a la agenda';
 
   // Elementos destacados de los trayectos
   List<String> destacados = ['Renfe', 'TMB', 'Alsa'];
+
+  // Elementos de texto de la pantalla
+  String bonos = 'Bonos';
+  String verBonos = 'Ver bonos';
+  String renfeName = 'Renfe';
+  String tmbname = 'TMB';
+  String categorias = 'Categorias';
 
   @override
   Widget build(BuildContext context) {
@@ -35,31 +60,41 @@ class _BodyDashboardState extends State<BodyDashboard> {
           ),
           const SizedBox(height: 20),
           ListTile(
-            title: Text('Bonos'),
-            subtitle: Text('Ver bonos habituales'),
-            trailing: Icon(Icons.train),
-            onTap: (){},
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            height: 50, // Limita la altura del ListView horizontal
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: destacados.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: _chip(context, destacados[index], destacados[index]),
-                );
-              },
-            ),
-          ),
+              title: Text(bonos),
+              subtitle: Text(verBonos),
+              trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                ElevatedButton.icon(
+                    onPressed: () {
+                      // Funcion que abre un enlace directo a los horarios oficiales
+                      _launchUrl(tarifasUrl);
+                    },
+                    style: ButtonStyle(
+                      minimumSize: WidgetStatePropertyAll(Size(100, 50)),
+                      backgroundColor:
+                          WidgetStateProperty.all(Colors.deepOrangeAccent),
+                    ),
+                    label: Text(renfeName)),
+                SizedBox(
+                  width: 15,
+                ),
+                ElevatedButton.icon(
+                    onPressed: () {
+                      // Funcion abre un enlace directo a horarios oficiales
+                      _launchUrl(horariosUrl);
+                    },
+                    style: ButtonStyle(
+                      minimumSize: WidgetStatePropertyAll(Size(100, 50)),
+                      backgroundColor:
+                          WidgetStateProperty.all(Colors.redAccent),
+                    ),
+                    label: Text(tmbname))
+              ])),
           SizedBox(
             height: 20,
           ),
           ListTile(
             title: Text(
-              'Categorias',
+              categorias,
               style: TextStyle(fontSize: 25),
             ),
             trailing: Icon(
@@ -87,22 +122,4 @@ class _BodyDashboardState extends State<BodyDashboard> {
       ),
     );
   }
-}
-
-// Elementos de la lista horizontal de listas
-Widget _chip(BuildContext context, String text, String info) {
-  return SizedBox(
-    child: ElevatedButton(
-        style: ButtonStyle(
-          minimumSize: WidgetStatePropertyAll(Size(100,30)),
-          backgroundColor:
-              WidgetStateProperty.all(const Color.fromARGB(255, 249, 255, 179)),
-          foregroundColor: WidgetStateProperty.all(Colors.black),
-        ),
-        onPressed: () {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(info)));
-        },
-        child: Text(text)),
-  );
 }

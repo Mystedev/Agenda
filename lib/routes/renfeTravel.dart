@@ -8,12 +8,13 @@ class RenfeRoute extends StatefulWidget {
 }
 
 class _RenfeRouteState extends State<RenfeRoute> {
+  String title = 'Renfe';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Renfe Rodalies'),
-      )
-    );
+        appBar: AppBar(
+      title:Text(title),
+    ));
   }
 }
