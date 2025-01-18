@@ -1,0 +1,14 @@
+GridView -> (Expanded(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200, // Ancho máximo de cada celda
+                childAspectRatio: 3 / 2, // Relación de aspecto de cada celda
+                crossAxisSpacing: 20, // Espacio horizontal entre celdas
+                mainAxisSpacing: 20, // Espacio vertical entre celdas
+              ),
+              itemCount: destacados.length,
+              itemBuilder: (context, index) {
+                return Container(// Eejemplo);
+              },
+            ),
+          ),)
